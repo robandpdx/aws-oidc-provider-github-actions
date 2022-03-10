@@ -1,5 +1,5 @@
 # oidc-provider-github-actions
-This repo contains a cloudformation template used to setup the OIDC provider and roles for Github actions. The roles are added via nested stacks. To add more roles simply copy the following section of template.yml and edit the `RepositoryName` under `Parameters`.
+This repo contains a cloudformation template used to setup the OIDC provider and roles for Github actions. The roles are added via nested stacks. To add more roles simply copy the following section of template.yml and edit the top level indentifier, in this case `roleRepo1`, and `RepositoryName` under `Parameters`.
 ```yml
   roleRepo1:
     Type: AWS::CloudFormation::Stack
@@ -10,7 +10,7 @@ This repo contains a cloudformation template used to setup the OIDC provider and
         RepositoryName: my-repo-1
         OIDCProviderArn: !Ref GithubOidc
 ```
-Also copy the `Output` section below...
+Also copy the `Output` section below and edit as needed...
 ```yml
 roleRepo1:
     Value: !GetAtt roleRepo1.Outputs.Role
@@ -18,7 +18,7 @@ roleRepo1:
       Name: !Sub "${AWS::StackName}-roleRepo1"
 ```
 
-You can then create another stack to define your policies attaching them to these roles as needed by importing the values exported by this stack.
+You can then create another stack to define your policies, attaching them to these roles as needed by importing the values exported by this stack.
 
 ## Deploy
 1. Setup your aws cli creds
