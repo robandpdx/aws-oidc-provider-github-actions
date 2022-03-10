@@ -1,0 +1,34 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: OIDC Provider for GitHub Actions
+
+Parameters:
+  GitHubOrg:
+    Type: String
+
+Resources:
+  GithubOidc:
+    Type: AWS::IAM::OIDCProvider
+    Properties:
+      Url: https://token.actions.githubusercontent.com
+      ClientIdList: 
+        - sts.amazonaws.com
+      ThumbprintList:
+        - 6938fd4d98bab03faadb97b34396831e3780aea1
+
+  roleRepo1:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: role.yml
+      Parameters:
+        GitHubOrg: !Ref GitHubOrg
+        RepositoryName: my-repo-1
+        OIDCProviderArn: !Ref GithubOidc
+
+Outputs:
+  OIDCProviderArn:
+    Value: !Ref GithubOidc
+  roleRepo1:
+    Value: !GetAtt roleRepo1.Outputs.Role
+    Export:
+      Name: !Sub "${AWS::StackName}-roleRepo1"
