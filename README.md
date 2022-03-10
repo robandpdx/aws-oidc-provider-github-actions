@@ -18,7 +18,7 @@ roleRepo1:
       Name: !Sub "${AWS::StackName}-roleRepo1"
 ```
 
-You can then create another stack to define your policies, attaching them to these roles as needed by importing the values exported by this stack.
+You can then create another stack to define your policies, attaching them to these roles as needed by importing the values exported by this stack. Then use [configure-aws-credentials](https://github.com/aws-actions/configure-aws-credentials) action to get temporary creds in your workflow.
 
 ## Deploy
 1. Setup your aws cli creds
