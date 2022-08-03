@@ -1,4 +1,4 @@
-# oidc-provider-github-actions
+# aws-oidc-provider-github-actions
 This repo contains a cloudformation template used to setup the OIDC provider and roles for Github actions. The roles are added via nested stacks. To add more roles simply copy the following section of template.yml and edit the top level indentifier, in this case `roleRepo1`, and `RepositoryName` under `Parameters`.
 ```yml
   roleRepo1:
